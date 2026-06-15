@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  profiles  InstagramProfile[]
+}
+
+model InstagramProfile {
+  id              String   @id @default(uuid())
+  internalId      String   @unique
+  username        String
+  fullName        String?
+  biography       String?
+  profilePicUrl   String?
+  followersCount  Int      @default(0)
+  followingCount  Int      @default(0)
+  postsCount      Int      @default(0)
+  category        String?
+  profileUrl      String?
+  lastSyncDate    DateTime @default(now())
+  
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  
+  posts           InstagramPost[]
+  analysis        InstagramAnalysis?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([username])
+}
+
+model InstagramPost {
+  id             String   @id @default(uuid())
+  postId         String   @unique
+  url            String
+  type           String   // image, video, carousel
+  caption        String?
+  postedAt       DateTime
+  likesCount     Int      @default(0)
+  commentsCount  Int      @default(0)
+  mediaUrl       String?
+  hashtags       String[]
+
+  profileId      String
+  profile        InstagramProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([profileId])
+}
+
+model InstagramAnalysis {
+  id                    String   @id @default(uuid())
+  niche                 String?
+  toneOfVoice           String?
+  targetAudience        String?
+  postingFrequency      String?
+  engagementLevel       String?
+  archetypes            String[]
+  positioningAnalysis   String?
+  strengths             String[]
+  weaknesses            String[]
+  opportunities         String[]
+  risks                 String[]
+  growthPrognosis       String?
+  
+  status                String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, FAILED
+  errorMessage          String?
+
+  profileId             String   @unique
+  profile               InstagramProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
