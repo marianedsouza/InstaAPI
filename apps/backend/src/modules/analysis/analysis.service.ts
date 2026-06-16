@@ -7,7 +7,7 @@ import { AnalysisResultDto } from './dto/analysis.dto';
 @Injectable()
 export class AnalysisService {
   private readonly logger = new Logger(AnalysisService.name);
-  private genAI: GoogleGenerativeAI;
+  private genAI!: GoogleGenerativeAI;
 
   constructor(
     private configService: ConfigService,
@@ -102,7 +102,7 @@ export class AnalysisService {
       this.logger.log(`Analysis completed for profile ${profileId}`);
 
       return dbAnalysis as AnalysisResultDto;
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error(`Error analyzing profile: ${error.message}`);
       throw error;
     }

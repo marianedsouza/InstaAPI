@@ -234,7 +234,7 @@ export class InstagramService {
         email: result.email,
         phone: result.phone,
       };
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error(`Error fetching profile from Apify: ${error.message}`);
       throw error;
     }
@@ -271,7 +271,7 @@ export class InstagramService {
       );
 
       return resultsResponse.data;
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error(`Error fetching posts from Apify: ${error.message}`);
       throw error;
     }
