@@ -12,7 +12,7 @@ async function bootstrap() {
   });
 
   // Security
-  app.use(helmet());
+  app.use((helmet as any)());
 
   // CORS
   app.enableCors({

@@ -1,4 +1,5 @@
-import { Controller, Post, Get, Param, Body, UseGuards, Request, Query, HttpCode, ApiTags, ApiOperation, ApiResponse } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Controller, Post, Get, Param, Body, UseGuards, Request, Query, HttpCode } from '@nestjs/common';
 import { InstagramService } from './instagram.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { SearchProfileDto, InstagramProfileResponseDto, InstagramPostResponseDto } from './dto/instagram.dto';

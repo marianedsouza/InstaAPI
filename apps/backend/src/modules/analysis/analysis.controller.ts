@@ -1,3 +1,4 @@
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Controller, Post, Get, Param, UseGuards, Request } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AnalysisService } from './analysis.service';

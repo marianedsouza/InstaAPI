@@ -1,4 +1,5 @@
-import { Controller, Get, ApiTags, ApiOperation } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Controller, Get } from '@nestjs/common';
 import { HealthService } from './health.service';
 
 @ApiTags('Health')
